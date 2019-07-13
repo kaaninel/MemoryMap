@@ -38,9 +38,20 @@ export default class MemoryMap {
     );
   }
 
+  toJSON() {
+    const Obj = Object.create(null);
+    this._Keys.forEach(Key => {
+      Obj[Key] = this[Key];
+    });
+    return Obj;
+  }
+
+  private _Keys: string[];
+
   constructor(public Buffer: Buffer) {
     let Index = 0;
-    Reflect.getMetadataKeys(this).forEach(Key => {
+    this._Keys = Reflect.getMetadataKeys(this);
+    this._Keys.forEach(Key => {
       const C = Reflect.getMetadata(Key, this) as typeof Byte;
       const I = Index;
       Index += C.Size;

@@ -1,6 +1,6 @@
 {
   "name": "memorymap",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A class wrapper for mapping class properties into a buffer.",
   "main": "lib.js",
   "ts:main": "src/index.ts",
