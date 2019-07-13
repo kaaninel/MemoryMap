@@ -1,0 +1,42 @@
+{
+  "name": "memorymap",
+  "version": "1.0.0",
+  "description": "A class wrapper for mapping class properties into a buffer.",
+  "main": "lib.js",
+  "ts:main": "src/index.ts",
+  "typings": "src/index.ts",
+  "scripts": {
+    "build": "node fuse",
+    "test": "node fusetest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmpatiLab/MemoryMap.git"
+  },
+  "keywords": [
+    "memory",
+    "buffer",
+    "map",
+    "mmap",
+    "data",
+    "persistant",
+    "share",
+    "global"
+  ],
+  "author": "Necati Kaan İnel <kaaninel@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EmpatiLab/MemoryMap/issues"
+  },
+  "homepage": "https://github.com/EmpatiLab/MemoryMap#readme",
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.2",
+    "fuse-box": "^3.7.1",
+    "terser": "^4.1.2",
+    "typescript": "^3.5.3",
+    "uglify-js": "^3.6.0"
+  }
+}
