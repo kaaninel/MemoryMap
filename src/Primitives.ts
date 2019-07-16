@@ -11,6 +11,7 @@ export class Byte extends Type<number> {
     this.Buffer.writeUInt8(Value, 0);
   }
 }
+
 export class Short extends Type<number> {
   static Size = 2;
 

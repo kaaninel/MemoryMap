@@ -1,32 +1,27 @@
 import "reflect-metadata";
 import { Byte } from "./Primitives";
-import { DynamicType } from "./DynamicMap";
 
-export abstract class Type<T = any> extends DynamicType<T> {
-  static Size: number;
+export abstract class DynamicType<T = any> {
+  abstract Read(): T;
+  abstract Write(Value: T): void;
+  abstract Size(Value: T): number;
 
-  Size() {
-    return (this.constructor as typeof Type).Size;
+  constructor(public Buffer: Buffer) {}
+
+  _Content?: T;
+
+  Get() {
+    if (!this._Content) this._Content = this.Read();
+    return this._Content;
+  }
+
+  Set(Value) {
+    this.Write(Value);
+    this._Content = Value;
   }
 }
 
-type Constructor<T = any> = { new (...args: any[]): T };
-
-export function Field<T>(Type: Constructor<Type<T>>) {
-  return function(Target, Key: string) {
-    console.log(Key, Type, Target);
-    Reflect.defineMetadata(Key, Type, Target);
-  };
-}
-
-export class MemoryMap {
-  static get Size() {
-    return Reflect.getMetadataKeys(this.prototype).reduce(
-      (x, y) => x + Reflect.getMetadata(y, this.prototype).Size,
-      0
-    );
-  }
-
+export class DynamicMemoryMap {
   toJSON() {
     const Obj = Object.create(null);
     this._Keys.forEach(Key => {
@@ -36,6 +31,8 @@ export class MemoryMap {
   }
 
   private _Keys: string[];
+
+  static $() {}
 
   constructor(public Buffer: Buffer) {
     let Index = 0;
