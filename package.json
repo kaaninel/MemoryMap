@@ -1,13 +1,12 @@
 {
   "name": "memorymap",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A class wrapper for mapping class properties into a buffer.",
   "main": "dist/index.js",
   "ts:main": "src/index.ts",
   "typings": "src/index.ts",
   "scripts": {
-    "build": "node fuse",
-    "test": "node fusetest.js"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -34,9 +33,6 @@
   },
   "devDependencies": {
     "@types/node": "^12.6.2",
-    "fuse-box": "^3.7.1",
-    "terser": "^4.1.2",
-    "typescript": "^3.5.3",
-    "uglify-js": "^3.6.0"
+    "typescript": "^3.5.3"
   }
 }
