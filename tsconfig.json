@@ -3,8 +3,9 @@
     "module": "CommonJS",
     "target": "ESNext",
     "jsx": "react",
-    "baseUrl": ".",
-    "importHelpers": true,
+    "baseUrl": "src",
+    "rootDir": "src",
+    "outDir": "dist",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   }
