@@ -30,12 +30,12 @@ export class MemoryMap {
   toJSON() {
     const Obj = Object.create(null);
     this._Keys.forEach(Key => {
-      Obj[Key] = this[Key];
+      Obj[Key[0]] = this[Key[0]];
     });
     return Obj;
   }
 
-  private _Keys: string[];
+  private _Keys: [string, typeof Byte][];
 
   protected _DefineProperty(Key: string, Type: typeof Byte, Index: number) {
     const Ins = new Type(this.Buffer.slice(Index, Index + Type.Size));
@@ -47,13 +47,16 @@ export class MemoryMap {
   }
 
   protected _ExtractKeys() {
-    this._Keys = Reflect.getMetadataKeys(this);
+    this._Keys = Reflect.getMetadataKeys(this).map(Key => [
+      Key,
+      Reflect.getMetadata(Key, this)
+    ]);
   }
 
   protected _DefineProperties() {
     let Index;
     this._Keys.forEach(Key => {
-      Index += this._DefineProperty(Key, Reflect.getMetadata(Key, this), Index);
+      Index += this._DefineProperty(Key[0], Key[1], Index);
     });
   }
 
