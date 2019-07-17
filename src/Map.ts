@@ -37,18 +37,28 @@ export class MemoryMap {
 
   private _Keys: string[];
 
-  constructor(public Buffer: Buffer) {
-    let Index = 0;
-    this._Keys = Reflect.getMetadataKeys(this);
-    this._Keys.forEach(Key => {
-      const C = Reflect.getMetadata(Key, this) as typeof Byte;
-      const I = Index;
-      Index += C.Size;
-      const Ins = new C(this.Buffer.slice(I, I + C.Size));
-      Object.defineProperty(this, Key, {
-        get: Ins.Get.bind(Ins),
-        set: Ins.Set.bind(Ins)
-      });
+  protected _DefineProperty(Key: string, Type: typeof Byte, Index: number) {
+    const Ins = new Type(this.Buffer.slice(Index, Index + Type.Size));
+    Object.defineProperty(this, Key, {
+      get: Ins.Get.bind(Ins),
+      set: Ins.Set.bind(Ins)
     });
+    return Type.Size;
+  }
+
+  protected _ExtractKeys() {
+    this._Keys = Reflect.getMetadataKeys(this);
+  }
+
+  protected _DefineProperties() {
+    let Index;
+    this._Keys.forEach(Key => {
+      Index += this._DefineProperty(Key, Reflect.getMetadata(Key, this), Index);
+    });
+  }
+
+  constructor(public Buffer: Buffer) {
+    this._ExtractKeys();
+    this._DefineProperties();
   }
 }
