@@ -46,22 +46,22 @@ export class MemoryMap {
     return Type.Size;
   }
 
-  protected _ExtractKeys() {
-    this._Keys = Reflect.getMetadataKeys(this).map(Key => [
+  protected _ExtractKeys(): [string, typeof Byte][] {
+    return Reflect.getMetadataKeys(this).map(Key => [
       Key,
       Reflect.getMetadata(Key, this)
     ]);
   }
 
   protected _DefineProperties() {
-    let Index;
+    let Index = 0;
     this._Keys.forEach(Key => {
       Index += this._DefineProperty(Key[0], Key[1], Index);
     });
   }
 
   constructor(public Buffer: Buffer) {
-    this._ExtractKeys();
+    this._Keys = this._ExtractKeys();
     this._DefineProperties();
   }
 }
