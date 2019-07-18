@@ -1,4 +1,4 @@
-import MemoryMap, { Field } from "./Map";
+import { MemoryMap, Field } from "./Map";
 import { Byte, UInt, BString } from "./Primitives";
 
 class Map extends MemoryMap {

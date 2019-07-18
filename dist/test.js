@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Map_1 = require("./Map");
 const Primitives_1 = require("./Primitives");
-class Map extends Map_1.default {
+class Map extends Map_1.MemoryMap {
 }
 __decorate([
     Map_1.Field(Primitives_1.Byte),

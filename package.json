@@ -6,7 +6,8 @@
   "ts:main": "src/index.ts",
   "typings": "src/index.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "nodemon dist/test.js"
   },
   "repository": {
     "type": "git",
